@@ -1,8 +1,13 @@
-import React from 'react'
+import styles from './DateCard.module.css'
+import Icon from '../../components/Icon/Icon'
 
-function DateCard() {
+const DateCard = ({ createdAt }) => {
+  const date = new Date(createdAt).toLocaleDateString()
   return (
-    <div>DateCard</div>
+    <div className={styles.container}>
+      <Icon category="Calendar" />
+      <h5>{date}</h5>
+    </div>
   )
 }
 
