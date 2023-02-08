@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
 import * as authService from '../../services/authService'
 
-const SignupForm = props => {
+const SignupForm = (props) => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
@@ -48,6 +48,8 @@ const SignupForm = props => {
       onSubmit={handleSubmit}
       className={styles.container}
     >
+      <h1>Sign Up</h1>
+      <p>{props.message}</p>
       <div className={styles.inputContainer}>
         <label htmlFor="name" className={styles.label}>Name</label>
         <input
@@ -100,18 +102,17 @@ const SignupForm = props => {
         </label>
         <input
           type="file"
-          id="photo-upload"
           name="photo"
+          id="photo-upload"
           onChange={handleChangePhoto}
+          // style={photoData ? { color: 'black' } : { color: 'transparent' }}
         />
       </div>
       <div className={styles.inputContainer}>
         <button disabled={isFormInvalid()} className={styles.button}>
-          Sign Up
+          SIGN UP
         </button>
-        <Link to="/">
-          <button>Cancel</button>
-        </Link>
+        <Link to="/">CANCEL</Link>
       </div>
     </form>
   )

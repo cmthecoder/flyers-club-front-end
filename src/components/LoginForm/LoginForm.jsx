@@ -32,7 +32,9 @@ const LoginForm = props => {
       onSubmit={handleSubmit}
       className={styles.container}
     >
-      <div className={styles.inputContainer}>
+      <h1>Login</h1>
+      <p>{props.message}</p>
+      <div>
         <label htmlFor="email" className={styles.label}>Email</label>
         <input
           type="text"
@@ -55,10 +57,8 @@ const LoginForm = props => {
         />
       </div>
       <div>
-        <button className={styles.button}>Log In</button>
-        <Link to="/">
-          <button>Cancel</button>
-        </Link>
+        <button className={styles.button}>LOG IN</button>
+        <Link to="/">CANCEL</Link>
       </div>
     </form>
   )

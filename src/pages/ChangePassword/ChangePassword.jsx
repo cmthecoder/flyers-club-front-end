@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm'
 import styles from './ChangePassword.module.css'
+import ChangeIcon from '../../assets/branding/change.png'
+import ChangePasswordForm from '../../components/ChangePasswordForm/ChangePasswordForm'
 
 const ChangePassword = props => {
   const [message, setMessage] = useState([''])
@@ -11,9 +12,16 @@ const ChangePassword = props => {
 
   return (
     <main className={styles.container}>
-      <h1>Change Password</h1>
-      <p>{message}</p>
-      <ChangePasswordForm {...props} updateMessage={updateMessage} />
+      <section>
+        <img src={ChangeIcon} alt="An owl sitting on a sign" />
+      </section>
+      <section>
+        <ChangePasswordForm
+          {...props}
+          message={message}
+          updateMessage={updateMessage}
+        />
+      </section>
     </main>
   )
 }

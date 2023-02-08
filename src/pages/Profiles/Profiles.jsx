@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import styles from './Profiles.module.css'
 import * as profileService from '../../services/profileService'
 
 const Profiles = () => {
@@ -12,20 +13,17 @@ const Profiles = () => {
     fetchProfiles()
   }, [])
 
+  if (!profiles.length) return <p>No Profiles</p>
+
   return (
-    <>
-      <h1>Hello. This is a list of all the profiles.</h1>
-      {profiles.length ? 
-        <>
-          {profiles.map(profile =>
-            <p key={profile._id}>{profile.name}</p>
-          )}
-        </>
-      :
-        <p>No profiles yet</p>
-      }
-    </>
+    <main className={styles.container}>
+      <ul>
+        {profiles.map(profile => (
+          <li>{profile.name}</li>
+        ))}
+      </ul>
+    </main>
   )
 }
- 
+
 export default Profiles

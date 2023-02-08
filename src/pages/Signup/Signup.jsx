@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import SignupForm from '../../components/SignupForm/SignupForm'
 import styles from './Signup.module.css'
+import SignupForm from '../../components/SignupForm/SignupForm'
+import SignupIcon from '../../assets/branding/signup.png'
 
 const Signup = props => {
   const [message, setMessage] = useState([''])
@@ -11,9 +12,16 @@ const Signup = props => {
 
   return (
     <main className={styles.container}>
-      <h1>Sign Up</h1>
-      <p>{message}</p>
-      <SignupForm {...props} updateMessage={updateMessage} />
+      <section>
+        <img src={SignupIcon} alt="An owl sitting on a sign" />
+      </section>
+      <section>
+        <SignupForm
+          {...props}
+          message={message}
+          updateMessage={updateMessage}
+        />
+      </section>
     </main>
   )
 }

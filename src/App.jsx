@@ -1,6 +1,6 @@
 // npm modules
-import { useState } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // page components
 import Signup from './pages/Signup/Signup'
@@ -8,6 +8,7 @@ import Login from './pages/Login/Login'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
+import BlogList from './pages/BlogList/BlogList'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -15,6 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
+import * as blogService from './services/blogService'
 
 // styles
 import './App.css'
@@ -32,6 +34,16 @@ const App = () => {
   const handleSignupOrLogin = () => {
     setUser(authService.getUser())
   }
+
+  const [blogs, setBlogs] = useState([])
+
+  useEffect(() => {
+    const fetchAllBlogs = async () => {
+      const data = await blogService.index()
+      setBlogs(data)
+    }
+    if (user) fetchAllBlogs()
+  }, [user])
 
   return (
     <>
@@ -59,6 +71,14 @@ const App = () => {
           element={
             <ProtectedRoute user={user}>
               <ChangePassword handleSignupOrLogin={handleSignupOrLogin} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/blogs'
+          element={
+            <ProtectedRoute user={user}>
+              <BlogList blogs={blogs} />
             </ProtectedRoute>
           }
         />
