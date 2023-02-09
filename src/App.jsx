@@ -51,6 +51,11 @@ const App = () => {
     navigate('/blogs')
   }
 
+  const handleDeleteBlog = async (id) => {
+    const deleteBlog = await blogService.deleteBlog(id)
+    setBlogs(blogs.filter(b => b._id !== deleteBlog._id))
+  }
+
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
@@ -97,7 +102,7 @@ const App = () => {
           path='/blogs/:id'
           element={
             <ProtectedRoute user={user}>
-              <BlogDetails user={user} />
+              <BlogDetails user={user} handleDeleteBlog={handleDeleteBlog} />
             </ProtectedRoute>
           }
         />

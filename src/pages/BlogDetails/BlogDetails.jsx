@@ -33,7 +33,7 @@ const BlogDetails = (props) => {
             {blog.author._id === props.user.profile &&
               <>
                 <Link to={`/blogs/${id}/edit`} state={blog}>Edit</Link>
-                <button>Delete</button>
+                <button onClick={() => props.handleDeleteBlog(id)}>Delete</button>
               </>
             }
           </span>
