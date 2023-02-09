@@ -5,12 +5,14 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 // page components
 import Signup from './pages/Signup/Signup'
 import Login from './pages/Login/Login'
+import Logout from './pages/Logout/Logout'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import BlogList from './pages/BlogList/BlogList'
 import BlogDetails from './pages/BlogDetails/BlogDetails'
 import NewBlog from './pages/NewBlog/NewBlog'
+import EditBlog from './pages/EditBlog/EditBlog'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -43,6 +45,12 @@ const App = () => {
     navigate('/blogs')
   }
 
+  const handleUpdateBlog = async (blogData) => {
+    const updatedBlog = await blogService.update(blogData)
+    setBlogs(blogs.map((b) => blogData._id === b._id ? updatedBlog : b))
+    navigate('/blogs')
+  }
+
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
@@ -57,15 +65,10 @@ const App = () => {
     <>
       <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
-        <Route
-          path="/signup"
-          element={<Signup handleSignupOrLogin={handleSignupOrLogin} />}
-        />
-        <Route
-          path="/login"
-          element={<Login handleSignupOrLogin={handleSignupOrLogin} />}
-        />
+      <Route path="/" element={<Landing />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/login" element={<Login handleSignupOrLogin={handleSignupOrLogin} />} />
+        <Route path="/signup" element={<Signup handleSignupOrLogin={handleSignupOrLogin} />} />
         <Route
           path="/profiles"
           element={
@@ -103,6 +106,14 @@ const App = () => {
           element={
             <ProtectedRoute user={user}>
               <NewBlog handleAddBlog={handleAddBlog} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/blogs/:id/edit'
+          element={
+            <ProtectedRoute user={user}>
+              <EditBlog handleUpdateBlog={handleUpdateBlog} />
             </ProtectedRoute>
           }
         />

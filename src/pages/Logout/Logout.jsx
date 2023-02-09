@@ -1,5 +1,5 @@
 import styles from './Logout.module.css'
-import Bye from '../../assets/branding/bye.pngg'
+import Bye from '../../assets/branding/bye.png'
 
 const Logout = () => {
   return (
