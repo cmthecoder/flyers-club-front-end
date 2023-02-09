@@ -10,6 +10,7 @@ import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import BlogList from './pages/BlogList/BlogList'
 import BlogDetails from './pages/BlogDetails/BlogDetails'
+import NewBlog from './pages/NewBlog/NewBlog'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -34,6 +35,12 @@ const App = () => {
 
   const handleSignupOrLogin = () => {
     setUser(authService.getUser())
+  }
+
+  const handleAddBlog = async (blogData) => {
+    const newBlog = await blogService.create(blogData)
+    setBlogs([newBlog, ...blogs])
+    navigate('/blogs')
   }
 
   const [blogs, setBlogs] = useState([])
@@ -88,6 +95,14 @@ const App = () => {
           element={
             <ProtectedRoute user={user}>
               <BlogDetails user={user} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/blogs/new'
+          element={
+            <ProtectedRoute user={user}>
+              <NewBlog handleAddBlog={handleAddBlog} />
             </ProtectedRoute>
           }
         />
