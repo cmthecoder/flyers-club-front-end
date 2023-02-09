@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import styles from './BlogDetails.module.css'
+import NewComment from "../../components/NewComment/NewComment"
+import Comments from "../../components/Comments/Comments"
 
 import * as blogService from '../../services/blogService'
 
@@ -11,6 +13,11 @@ const BlogDetails = (props) => {
 
   const { id } = useParams()
   const [blog, setBlogs] = useState(null)
+
+  const handleAddComment = async (commentData) => {
+    const newComment = await blogService.createComment(id, commentData)
+    setBlogs({...blog, comments: [...blog.comments, newComment]})
+  }
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -42,6 +49,8 @@ const BlogDetails = (props) => {
       </article>
       <section>
         <h1>Comments</h1>
+        <NewComment handleAddComment={handleAddComment} />
+        <Comments comments={blog.comments} user={props.user}/>
       </section>
     </main>
   )
