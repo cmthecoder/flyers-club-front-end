@@ -12,17 +12,22 @@ import AuthorInfo from "../../components/AuthorInfo/AuthorInfo"
 const BlogDetails = (props) => {
 
   const { id } = useParams()
-  const [blog, setBlogs] = useState(null)
+  const [blog, setBlog] = useState(null)
 
   const handleAddComment = async (commentData) => {
     const newComment = await blogService.createComment(id, commentData)
-    setBlogs({...blog, comments: [...blog.comments, newComment]})
+    setBlog({...blog, comments: [...blog.comments, newComment]})
+  }
+
+  const handleDeleteComment = async (blogId, commentId) => {
+    await blogService.deleteComment(blogId, commentId)
+    setBlog({...blog, comments: blog.comments.filter((c) => c._id !== commentId)})
   }
 
   useEffect(() => {
     const fetchBlog = async () => {
       const data = await blogService.show(id)
-      setBlogs(data)
+      setBlog(data)
     }
     fetchBlog()
   }, [id])
@@ -50,7 +55,12 @@ const BlogDetails = (props) => {
       <section>
         <h1>Comments</h1>
         <NewComment handleAddComment={handleAddComment} />
-        <Comments comments={blog.comments} user={props.user} blogId={id} />
+        <Comments
+          comments={blog.comments}
+          user={props.user}
+          blogId={id}
+          handleDeleteComment={handleDeleteComment}
+        />
       </section>
     </main>
   )
