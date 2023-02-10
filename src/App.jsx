@@ -13,6 +13,7 @@ import BlogList from './pages/BlogList/BlogList'
 import BlogDetails from './pages/BlogDetails/BlogDetails'
 import NewBlog from './pages/NewBlog/NewBlog'
 import EditBlog from './pages/EditBlog/EditBlog'
+import EditComment from './pages/EditComment/EditComment'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -119,6 +120,14 @@ const App = () => {
           element={
             <ProtectedRoute user={user}>
               <EditBlog handleUpdateBlog={handleUpdateBlog} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/blogs/:blogId/comments/:commentId'
+          element={
+            <ProtectedRoute user={user}>
+              <EditComment />
             </ProtectedRoute>
           }
         />
