@@ -15,13 +15,13 @@ const Landing = ({ user }) => {
           <h1>ABOUT US</h1>
         </header>
         <article>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod, omnis? Amet modi velit doloribus, error dolores eius hic rerum porro perferendis dolorum numquam, alias excepturi quia a aspernatur provident molestiae!
+          <p>The Flyers is a community where people who share a passion for aviation can meet and share their fun adventures or discuss changes in the world of aviation.
           </p>
         </article>
       </section>
     </main>
     <footer className={styles.footer}>
-      <p>© 2022 FLYERS INC. ALL RIGHTS RESERVED</p>
+      <p>© 2023 FLYERS INC. ALL RIGHTS RESERVED</p>
     </footer>
     </>
   )
